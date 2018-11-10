@@ -1,0 +1,29 @@
+{
+  "name": "project_superchat",
+  "version": "1.0.0",
+  "description": "Build a realtime multi-room chat application. Make it super.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vikingeducation/project_superchat.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/vikingeducation/project_superchat/issues"
+  },
+  "homepage": "https://github.com/vikingeducation/project_superchat#readme",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "ejs": "^2.6.1",
+    "express": "^4.16.4",
+    "express-ejs-layouts": "^2.5.0",
+    "redis": "^2.8.0",
+    "socket.io": "^2.1.1",
+    "socket.io-client": "^2.1.1"
+  }
+}

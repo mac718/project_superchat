@@ -8,10 +8,11 @@
   <div class="new-post">
     <div class="new-post-label">NEW POST</div>
     <div class="new-post-form">
-      <form id="new-post">
-        <textarea rows='5' form="new-post" name="new-post" class="form-control new-post-text">Post stuff here...</textarea>
-        <input type="submit" name="submit-post" value="Post" class="btn btn-success">
+      <form action="/posts/new" method="post" id="new-post">
+        <textarea rows='5' form="new-post" name="newPostContent" class="form-control new-post-text">Post stuff here...</textarea>
+        <input type="submit" name="submit-post" value="Post" class="btn btn-success submit-post">
       </form>
     </div>
   </div>
 </div>
+

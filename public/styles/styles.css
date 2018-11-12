@@ -16,16 +16,16 @@ header h1 {
 }
 
 .message-list {
-  width: 250px;
-  height: 300px;
+  width: 400px;
+  height: 500px;
   margin-left: 20px;
   margin-top: 20px;
   border: 1px solid;
 }
 
 .new-post {
-  width: 225px;
-  height: 250px;
+  width: 300px;
+  height: 240px;
   margin-left: 20px;
   margin-top: 20px;
   border: 1px solid;
@@ -47,5 +47,5 @@ input[name='submit-post'] {
 
 .new-post-text {
   margin: 10px 10px 10px 10px;
-  width: 205px;
+  width: 280px;
 }

@@ -19,20 +19,29 @@ app.use(express.static(`${__dirname}/public`));
 app.use(bodyParser.urlencoded({ extended: true }));
 
 io.on('connection', client => {
-  console.log('hello'); 
+  console.log('hello');
+
+  client.on('new-post', (content) => {
+    message.newPost(content)
+    io.emit('append-post', content);
+  }) 
 })
 
 app.get('/', (req, res) => {
-  res.render('index');
+  redisClient.lrange('posts', 0, -1, (err, list) => {
+    console.log(list);
+    res.render('index', {list});
+  })
 })
 
 app.post('/posts/new', (req, res) => {
-  let content = req.body.newPostContent;
-  message.newPost(content);
-  redisClient.lindex('posts', 0, (err, value) => {
-    console.log(value);
-    res.redirect('back');
-  })
+  // let content = req.body.newPostContent;
+  // message.newPost(content);
+  // redisClient.lindex('posts', 0, (err, value) => {
+  //   console.log(value);
+  //   res.redirect('back');
+  // })
+  res.render('index')
 })
 
 server.listen(3000);

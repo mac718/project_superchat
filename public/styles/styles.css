@@ -15,12 +15,13 @@ header h1 {
   display: flex;
 }
 
-.message-list {
+.message-list-div {
   width: 400px;
   height: 500px;
   margin-left: 20px;
   margin-top: 20px;
   border: 1px solid;
+  overflow: scroll;
 }
 
 .new-post {

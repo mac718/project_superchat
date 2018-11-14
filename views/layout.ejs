@@ -12,5 +12,14 @@
 </body>
 <script>
   var socket = io.connect('http://localhost:3000');
+
+  socket.on('append-post', data => {
+    $('.message-list').append(`<li>${data}</li><hr>`);
+  })
+
+  $('.submit-post').click((e) => {
+    let content = $('#newPostContent').val();
+    socket.emit('new-post', content);
+  })
 </script>
 </html>

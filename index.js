@@ -29,7 +29,6 @@ io.on('connection', client => {
 
 app.get('/', (req, res) => {
   redisClient.lrange('posts', 0, -1, (err, list) => {
-    console.log(list);
     res.render('index', {list});
   })
 })

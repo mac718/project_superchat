@@ -6,7 +6,10 @@
     <div class="room-name">CATS</div>
     <ul class="message-list">
       <% list.forEach( post => { %>
-        <li><%=post%></li><hr>
+        <li>
+          <h4 class="username">Anon</h4>
+          <%=post%>
+        </li><hr>
       <% }) %>
     </ul>
   </div>

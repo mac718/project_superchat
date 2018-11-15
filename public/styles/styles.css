@@ -6,6 +6,10 @@ header {
   align-items: center;
 }
 
+li {
+  list-style: none;
+}
+
 header h1 {
   margin-left: 20px;
   font-weight: bold;
@@ -49,4 +53,8 @@ input[name='submit-post'] {
 .new-post-text {
   margin: 10px 10px 10px 10px;
   width: 280px;
+}
+
+.username {
+  font-weight: bold;
 }

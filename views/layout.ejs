@@ -8,13 +8,22 @@
    <script src="/socket.io/socket.io.js"></script>
 </head>
 <body class="container">
+  <header>
+    <h1>SUPER CHAT</h1>
+    <%if(user != ''){%>
+    <div class="logout">
+      <span><%=user%></span>
+      <a href="/logout">Sign Out</a>
+    </div>
+    <%}%>
+  </header>
   <%- body %>
 </body>
 <script>
   var socket = io.connect('http://localhost:3000');
 
   socket.on('append-post', data => {
-    $('.message-list').append(`<li>${data}</li><hr>`);
+    $('.message-list').append(`<h4 class="username"><%=user%></h4><li>${data}</li><hr>`);
   })
 
   $('.submit-post').click((e) => {

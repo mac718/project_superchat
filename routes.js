@@ -14,8 +14,9 @@ router.get('/', (req, res) => {
       res.render('index', {rooms, user, room});
     })
   } else {
-    let user = ''
-    res.render('login', {user});
+    let user = '';
+    let room = '';
+    res.render('login', {user, room});
   }
 })
 

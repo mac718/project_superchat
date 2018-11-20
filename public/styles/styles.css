@@ -54,6 +54,10 @@ header h1 {
   padding-right: 5px;
 }
 
+.close {
+  display: inline-block;
+}
+
 input[name='submit-post'], input[name='login'], input[name='submit-room'] {
   display: block;
   margin: auto;

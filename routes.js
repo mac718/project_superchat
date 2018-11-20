@@ -23,7 +23,6 @@ router.get('/', (req, res) => {
 router.get('/chatrooms/:room', (req, res) => {
   let user = req.cookies.user;
   let room = req.params.room.toUpperCase();
-  console.log(room);
   let rooms;
   redisClient.lrange('rooms', 0, -1, (err, roomList) => {
     rooms = roomList;
@@ -40,6 +39,10 @@ router.post('/new-room', (req, res) => {
   let room = req.body.newRoom;
   console.log(room);
   redisClient.rpush('rooms', room);
+  res.redirect('/');
+})
+
+router.get('/close-room', (req, res) => {
   res.redirect('/');
 })
 

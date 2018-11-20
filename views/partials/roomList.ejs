@@ -1,0 +1,10 @@
+<div class="room-list-div">
+  <div class="room-name">CHAT ROOMS</div>
+  <ul class="room-list">
+    <% rooms.forEach( room => { %>
+      <li>
+        <a href="/chatrooms/<%=room%>"><h4 class="room"><%=room%></h4></a>
+      </li><hr>
+    <% }) %>
+  </ul>
+</div>

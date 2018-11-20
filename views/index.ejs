@@ -1,22 +1,22 @@
 <div class="main-content">
-  <div class="message-list-div">
-    <div class="room-name">CATS</div>
-    <ul class="message-list">
-      <% list.forEach( post => { %>
+  <div class="room-list-div">
+    <div class="room-name">CHAT ROOMS</div>
+    <ul class="room-list">
+      <% rooms.forEach( room => { %>
         <li>
-          <h4 class="username"><%=user%></h4>
-          <%=post%>
+          <a href="/chatrooms/<%=room%>"><h4 class="room"><%=room%></h4></a>
         </li><hr>
       <% }) %>
     </ul>
   </div>
-  <div class="new-post">
-    <div class="new-post-label">NEW POST</div>
-    <div class="new-post-form">
-      <div id="new-post">
-        <textarea rows='5' form="new-post" id="newPostContent" name="newPostContent" class="form-control new-post-text"></textarea>
-        <input type="submit" name="submit-post" value="Post" class="btn btn-success submit-post">
-      </div>
+  <div class="new-room">
+    <div class="new-room-label">NEW ROOM</div>
+    <div class="new-room-form">
+      <form action="/new-room" method="post" id="new-room">
+        <label for="new-room">Room Name</label>
+        <input type="text" name="newRoom" class="form-control new-room-text">
+        <input type="submit" name="submit-room" value="Create Room" class="btn btn-success submit-post">
+      </form>
     </div>
   </div>
 </div>

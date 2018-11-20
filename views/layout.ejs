@@ -28,7 +28,10 @@
 
   $('.submit-post').click((e) => {
     let content = $('#newPostContent').val();
-    socket.emit('new-post', content);
+    let author = '<%-user%>';
+    let room = '<%-room%>';
+    
+    socket.emit('new-post', content, author, room);
   })
 </script>
 </html>

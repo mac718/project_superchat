@@ -8,14 +8,38 @@ const message = require('./lib/post');
 
 router.get('/', (req, res) => {
   if(req.cookies && req.cookies.user != undefined) {
-    let user = req.cookies.user
-    redisClient.lrange('posts', 0, -1, (err, list) => {
-      res.render('index', {list, user});
+    let user = req.cookies.user;
+    let room = ''
+    redisClient.lrange('rooms', 0, -1, (err, rooms) => {
+      res.render('index', {rooms, user, room});
     })
   } else {
     let user = ''
     res.render('login', {user});
   }
+})
+
+router.get('/chatrooms/:room', (req, res) => {
+  let user = req.cookies.user;
+  let room = req.params.room.toUpperCase();
+  console.log(room);
+  let rooms;
+  redisClient.lrange('rooms', 0, -1, (err, roomList) => {
+    rooms = roomList;
+  })
+  redisClient.hgetall(`${room}`, (err, posts) => {
+    res.render('room', {posts, user, room, rooms});
+  })
+  // redisClient.lrange('posts', 0, -1, (err, posts) => {
+  //   res.render('room', {posts, user, room});
+  // })
+})
+
+router.post('/new-room', (req, res) => {
+  let room = req.body.newRoom;
+  console.log(room);
+  redisClient.rpush('rooms', room);
+  res.redirect('/');
 })
 
 router.get('/login', (req, res) => {

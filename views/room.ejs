@@ -4,12 +4,12 @@
     <div class="room-name"><%=room%></div>
     <div class="close"><a href="/close-room">close</a></div>
     <ul class="message-list">
-      <% for(var post in posts) { %>
+      <% posts.forEach(post => { %>
         <li>
-          <h4 class="username"><%=post%></h4>
-          <%=posts[post]%>
+          <h4 class="username"><%=Object.keys(JSON.parse(post))%></h4>
+          <%=JSON.parse(post)[Object.keys(JSON.parse(post))]%>
         </li><hr>
-      <% } %>
+      <% }) %>
     </ul>
   </div>
   <div class="new-post">

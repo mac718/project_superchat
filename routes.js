@@ -27,9 +27,12 @@ router.get('/chatrooms/:room', (req, res) => {
   redisClient.lrange('rooms', 0, -1, (err, roomList) => {
     rooms = roomList;
   })
-  redisClient.hgetall(`${room}`, (err, posts) => {
+  redisClient.lrange(`${room}`, 0, -1, (err, posts) => {
     res.render('room', {posts, user, room, rooms});
   })
+  // redisClient.hgetall(`${room}`, (err, posts) => {
+  //   res.render('room', {posts, user, room, rooms});
+  // })
   // redisClient.lrange('posts', 0, -1, (err, posts) => {
   //   res.render('room', {posts, user, room});
   // })

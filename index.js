@@ -29,7 +29,7 @@ io.on('connection', client => {
 
   client.on('new-post', (content, author, room) => {
     message.newPost(content, author, room)
-    io.emit('append-post', content);
+    io.emit('append-post', content, author);
   })
 })
 

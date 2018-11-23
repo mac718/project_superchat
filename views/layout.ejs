@@ -22,15 +22,15 @@
 <script>
   var socket = io.connect('http://localhost:3000');
 
-  socket.on('append-post', data => {
-    $('.message-list').append(`<h4 class="username"><%=user%></h4><li>${data}</li><hr>`);
+  socket.on('append-post', (content, author) => {
+    $('.message-list').append(`<h4 class="username">${author}<%//=user%></h4><li>${content}</li><hr>`);
   })
 
   $('.submit-post').click((e) => {
     let content = $('#newPostContent').val();
-    let author = '<%-user%>';
+    let author = '<%-user%>';//have to change
     let room = '<%-room%>';
-    
+
     socket.emit('new-post', content, author, room);
   })
 </script>

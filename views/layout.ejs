@@ -28,7 +28,7 @@
 
   $('.submit-post').click((e) => {
     let content = $('#newPostContent').val();
-    let author = '<%-user%>';//have to change
+    let author = '<%-user%>';
     let room = '<%-room%>';
 
     socket.emit('new-post', content, author, room);

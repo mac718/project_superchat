@@ -4,7 +4,6 @@ const redis = require('redis');
 const redisClient = redis.createClient();
 const bodyParser = require('body-parser');
 const message = require('./lib/post');
-//const cookieParser = require('cookie-parser');
 
 router.get('/', (req, res) => {
   if(req.cookies && req.cookies.user != undefined) {
@@ -30,12 +29,6 @@ router.get('/chatrooms/:room', (req, res) => {
   redisClient.lrange(`${room}`, 0, -1, (err, posts) => {
     res.render('room', {posts, user, room, rooms});
   })
-  // redisClient.hgetall(`${room}`, (err, posts) => {
-  //   res.render('room', {posts, user, room, rooms});
-  // })
-  // redisClient.lrange('posts', 0, -1, (err, posts) => {
-  //   res.render('room', {posts, user, room});
-  // })
 })
 
 router.post('/new-room', (req, res) => {
@@ -68,12 +61,6 @@ router.post('/', (req, res) => {
 })
 
 router.post('/posts/new', (req, res) => {
-  // let content = req.body.newPostContent;
-  // message.newPost(content);
-  // redisClient.lindex('posts', 0, (err, value) => {
-  //   console.log(value);
-  //   res.redirect('back');
-  // })
   res.render('index')
 })
 

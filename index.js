@@ -25,7 +25,6 @@ app.use('/', routes);
 app.use(express.static(`${__dirname}/public`));  
 
 io.on('connection', client => {
-  console.log('hello');
 
   client.on('new-post', (content, author, room) => {
     message.newPost(content, author, room)

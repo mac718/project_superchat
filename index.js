@@ -2,8 +2,16 @@ const express = require('express');
 const app = express();
 const server = require('http').createServer(app);
 const io = require('socket.io')(server);
-const redis = require('redis');
-const redisClient = redis.createClient(process.env.REDIS_URL);
+//const redis = require('redis');
+if (process.env.REDISTOGO_URL) {
+  var rtg   = require("url").parse(process.env.REDISTOGO_URL);
+  var redis = require("redis").createClient(rtg.port, rtg.hostname);
+
+  redis.auth(rtg.auth.split(":")[1]);
+} else {
+  var redis = require("redis").createClient();
+}
+//const redisClient = redis.createClient(ENV['REDIS_URL']);
 const bodyParser = require('body-parser');
 const expressLayouts = require('express-ejs-layouts');
 const message = require('./lib/post');

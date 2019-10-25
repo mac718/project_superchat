@@ -3,6 +3,9 @@ const app = express();
 const server = require('http').createServer(app);
 const io = require('socket.io')(server);
 //const redis = require('redis');
+if (process.env.REDISTOGO_URL){
+  alert('yes!')
+}
 var rtg
 var redisClient
 if (process.env.REDISTOGO_URL) {

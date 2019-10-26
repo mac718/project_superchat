@@ -3,19 +3,19 @@ const app = express();
 const server = require('http').createServer(app);
 const io = require('socket.io')(server);
 //const redis = require('redis');
-if (process.env.REDISTOGO_URL){
-  alert('yes!')
-}
-var rtg
-var redisClient
-if (process.env.REDISTOGO_URL) {
-  var rtg   = require("url").parse(process.env.REDISTOGO_URL);
-  var redisClient = require("redis").createClient(rtg.port, rtg.hostname);
+// if (process.env.REDISTOGO_URL){
+//   alert('yes!')
+// }
+// var rtg
+// var redisClient
+// if (process.env.REDISTOGO_URL) {
+//   var rtg   = require("url").parse(process.env.REDISTOGO_URL);
+//   var redisClient = require("redis").createClient(rtg.port, rtg.hostname);
 
-  redis.auth(rtg.auth.split(":")[1]);
-} else {
-  var redisClient = require("redis").createClient();
-}
+//   redis.auth(rtg.auth.split(":")[1]);
+// } else {
+//   var redisClient = require("redis").createClient();
+// }
 //const redisClient = redis.createClient(ENV['REDIS_URL']);
 const bodyParser = require('body-parser');
 const expressLayouts = require('express-ejs-layouts');

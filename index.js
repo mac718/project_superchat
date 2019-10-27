@@ -17,9 +17,9 @@ const io = require('socket.io')(server);
 //   var redisClient = require("redis").createClient();
 // }
 //const redisClient = redis.createClient(ENV['REDIS_URL']);
-var redis = require("redis")
+//var redis = require("redis")
 
-var redisClient = redis.createClient(process.env.REDISCLOUD_URL, {no_ready_check: true});
+//var redisClient = redis.createClient(process.env.REDISCLOUD_URL, {no_ready_check: true});
 const bodyParser = require('body-parser');
 const expressLayouts = require('express-ejs-layouts');
 const message = require('./lib/post');

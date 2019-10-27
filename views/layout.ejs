@@ -20,7 +20,7 @@
   <%- body %>
 </body>
 <script>
-  var socket = io.connect('https://safe-plains-59819.herokuapp.com/');
+  var socket = io.connect('/');
 
   socket.on('append-post', (content, author) => {
     $('.message-list').append(`<h4 class="username">${author}<%//=user%></h4><li>${content}</li><hr>`);

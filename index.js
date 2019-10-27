@@ -1,4 +1,3 @@
-console.log(process.env.REDISCLOUD_URL)
 require('dotenv').config()
 const express = require('express');
 const app = express();
@@ -24,7 +23,7 @@ const io = require('socket.io')(server);
 //var redisClient = redis.createClient(process.env.REDISCLOUD_URL, {no_ready_check: true});
 var redis = require("redis")
 var url = require('url')
-var redisURL = url.parse(process.env.REDISCLOUD_URL);
+var redisURL = url.parse(process.env['REDISCLOUD_URL']);
 var redisClient = redis.createClient(redisURL.port, redisURL.hostname, {no_ready_check: true});
 console.log(redisURL)
 //redisClient.auth(redisURL.auth.split(":")[1]);

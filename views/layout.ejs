@@ -20,7 +20,7 @@
   <%- body %>
 </body>
 <script>
-  var socket = io.connect('/');
+  var socket = io.connect('https://murmuring-thicket-85652.herokuapp.com/');
 
   socket.on('append-post', (content, author) => {
     $('.message-list').append(`<h4 class="username">${author}<%//=user%></h4><li>${content}</li><hr>`);

@@ -1,3 +1,5 @@
+console.log(process.env.REDISCLOUD_URL)
+require('dotenv').config()
 const express = require('express');
 const app = express();
 const server = require('http').createServer(app);
@@ -24,7 +26,8 @@ var redis = require("redis")
 var url = require('url')
 var redisURL = url.parse(process.env.REDISCLOUD_URL);
 var redisClient = redis.createClient(redisURL.port, redisURL.hostname, {no_ready_check: true});
-redisClient.auth(redisURL.auth.split(":")[1]);
+console.log(redisURL)
+//redisClient.auth(redisURL.auth.split(":")[1]);
 const bodyParser = require('body-parser');
 const expressLayouts = require('express-ejs-layouts');
 const message = require('./lib/post');

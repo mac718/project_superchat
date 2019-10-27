@@ -20,6 +20,11 @@ const io = require('socket.io')(server);
 //var redis = require("redis")
 
 //var redisClient = redis.createClient(process.env.REDISCLOUD_URL, {no_ready_check: true});
+var redis = require("redis")
+var url = require('url')
+var redisURL = url.parse(process.env.REDISCLOUD_URL);
+var redisClient = redis.createClient(redisURL.port, redisURL.hostname, {no_ready_check: true});
+redisClient.auth(redisURL.auth.split(":")[1]);
 const bodyParser = require('body-parser');
 const expressLayouts = require('express-ejs-layouts');
 const message = require('./lib/post');

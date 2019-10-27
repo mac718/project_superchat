@@ -25,6 +25,7 @@ const expressLayouts = require('express-ejs-layouts');
 const message = require('./lib/post');
 const cookieParser = require('cookie-parser');
 const routes = require('./routes');
+let port = process.env.PORT || 3000;
 
 app.set('view engine', 'ejs');
 
@@ -48,4 +49,5 @@ io.on('connection', client => {
   })
 })
 
-server.listen(process.env.PORT || 3000);
+
+server.listen(port);

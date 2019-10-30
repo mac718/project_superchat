@@ -20,7 +20,7 @@
   <%- body %>
 </body>
 <script>
-  var socket = io.connect('https://murmuring-thicket-85652.herokuapp.com/');
+  var socket = io.connect('http://localhost:3000' || 'https://murmuring-thicket-85652.herokuapp.com/');
 
   socket.on('append-post', (content, author) => {
     $('.message-list').append(`<h4 class="username">${author}<%//=user%></h4><li>${content}</li><hr>`);
@@ -32,6 +32,8 @@
     let room = '<%-room%>';
 
     socket.emit('new-post', content, author, room);
+    $('#newPostContent').val('')
+    $(".message-list-div").stop().animate({ scrollTop: $(".message-list-div")[0].scrollHeight}, 1000);
   })
 </script>
 </html>

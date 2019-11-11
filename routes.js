@@ -3,6 +3,7 @@ const router = express.Router();
 const redis = require("redis")
 const url = require('url')
 var redisClient;
+
 if( process.env.REDISCLOUD_URL ) {
   var redisURL = url.parse(process.env.REDISCLOUD_URL);
   redisClient = redis.createClient(redisURL.port, redisURL.hostname, {no_ready_check: true});
@@ -10,6 +11,7 @@ if( process.env.REDISCLOUD_URL ) {
 } else {
   redisClient = redis.createClient();
 }
+
 const bodyParser = require('body-parser');
 const message = require('./lib/post');
 
@@ -25,12 +27,23 @@ router.get('/', (req, res) => {
     let room = '';
     res.render('login', {user, room});
   }
+  //determine number of users in each room
+  // let numberOfUsers = [];
+  //   posts.forEach(post => {
+  //     if(!numberOfUsers.includes(Object.keys(JSON.parse(post))[0])) {
+  //       numberOfUsers.push(Object.keys(JSON.parse(post))[0])
+  //     }
+  //   })
 })
 
 router.get('/chatrooms/:room', (req, res) => {
   let user = req.cookies.user;
   let room = req.params.room.toUpperCase();
+  let lastJoin = `${user}Last${room}JoinTime`
+  let time = Date.now()
+  res.cookie(lastJoin, time)
   let rooms;
+  console.log(req.cookies)
   redisClient.lrange('rooms', 0, -1, (err, roomList) => {
     rooms = roomList;
   })

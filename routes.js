@@ -19,6 +19,7 @@ router.get('/', (req, res) => {
   if(req.cookies && req.cookies.user != undefined) {
     let user = req.cookies.user;
     let room = ''
+    let newMessages = []
     redisClient.lrange('rooms', 0, -1, (err, rooms) => {
       res.render('index', {rooms, user, room});
     })
@@ -59,7 +60,13 @@ router.post('/new-room', (req, res) => {
   res.redirect('/');
 })
 
-router.get('/close-room', (req, res) => {
+router.get('/close-room/:room', (req, res) => {
+  let user = req.cookies.user;
+  let room = req.params.room.toUpperCase();
+  let lastLeave = `${user}Last${room}LeaveTime`
+  let time = Date.now()
+  res.cookie(lastLeave, time)
+
   res.redirect('/');
 })
 

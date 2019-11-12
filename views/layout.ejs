@@ -28,12 +28,14 @@
     $('.message-list').append(`<h4 class="username">${author}</h4><li>${content}</li><hr>`);
   })
 
-  $('.submit-post').click((e) => {
+  $('.submit-post').click(() => {
     let content = $('#newPostContent').val();
     let author = '<%-user%>';
     let room = '<%-room%>';
+    let time = Date.now();
+    console.log('time: ' + time)
 
-    socket.emit('new-post', content, author, room);
+    socket.emit('new-post', content, author, room, time);
     $('#newPostContent').val('')
     $(".message-list-div").stop().animate({ scrollTop: $(".message-list-div")[0].scrollHeight}, 1000);
   })

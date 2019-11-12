@@ -33,8 +33,8 @@ app.use(express.static(`${__dirname}/public`));
 
 io.on('connection', client => {
 
-  client.on('new-post', (content, author, room) => {
-    message.newPost(content, author, room)
+  client.on('new-post', (content, author, room, time) => {
+    message.newPost(content, author, room, time)
     io.emit('append-post', content, author);
   })
 })

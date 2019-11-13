@@ -19,9 +19,34 @@ router.get('/', (req, res) => {
   if(req.cookies && req.cookies.user != undefined) {
     let user = req.cookies.user;
     let room = ''
+    let roomList;
     let newMessages = []
+    
     redisClient.lrange('rooms', 0, -1, (err, rooms) => {
-      res.render('index', {rooms, user, room});
+      
+      roomList = rooms;
+  
+      roomList.forEach(room => {
+        
+        let messageList;
+        room = room.toUpperCase()
+        
+        redisClient.lrange(`${room}`, 0, -1, (err, messages) => {
+          
+          messageList = messages;
+          let leaveTime = `${user}last${room}LeaveTime`
+          let timeFilteredMessages;
+          if(req.cookies[`${user}Last${room}LeaveTime`]){
+            timeFilteredMessages = messageList.filter(message => {
+             return JSON.parse(message).time > req.cookies[`${user}Last${room}LeaveTime`]
+            }) 
+          } else {
+            timeFilteredMessages = messageList
+          }
+          newMessages.push(timeFilteredMessages);
+          res.render('index', {rooms, user, room, newMessages});
+        })  
+      })
     })
   } else {
     let user = '';
@@ -45,12 +70,47 @@ router.get('/chatrooms/:room', (req, res) => {
   res.cookie(lastJoin, time)
   let rooms;
   console.log(req.cookies)
-  redisClient.lrange('rooms', 0, -1, (err, roomList) => {
-    rooms = roomList;
-  })
-  redisClient.lrange(`${room}`, 0, -1, (err, posts) => {
-    res.render('room', {posts, user, room, rooms});
-  })
+
+  let roomList;
+    let newMessages = []
+    
+    redisClient.lrange('rooms', 0, -1, (err, rooms) => {
+      
+      roomList = rooms;
+  
+      roomList.forEach(room => {
+        
+        let messageList;
+        room = room.toUpperCase()
+        
+        redisClient.lrange(`${room}`, 0, -1, (err, messages) => {
+          
+          messageList = messages;
+          let leaveTime = `${user}last${room}LeaveTime`
+          let timeFilteredMessages
+          if(req.cookies[`${user}Last${room}LeaveTime`]){
+            console.log('hello')
+            timeFilteredMessages = messageList.filter(message => {
+              console.log(JSON.parse(message).time)
+              console.log(req.cookies[`${user}Last${room}LeaveTime`])
+              return JSON.parse(message).time > req.cookies[`${user}Last${room}LeaveTime`]
+            }) 
+          } else {
+            timeFilteredMessages = []
+          }
+          newMessages.push(timeFilteredMessages);
+          redisClient.lrange(`${room}`, 0, -1, (err, posts) => {
+            res.render('room', {posts, user, room, rooms, newMessages});
+          })
+        })  
+      })
+    })
+  // redisClient.lrange('rooms', 0, -1, (err, roomList) => {
+  //   rooms = roomList;
+  // })
+  // redisClient.lrange(`${room}`, 0, -1, (err, posts) => {
+  //   res.render('room', {posts, user, room, rooms});
+  // })
 })
 
 router.post('/new-room', (req, res) => {

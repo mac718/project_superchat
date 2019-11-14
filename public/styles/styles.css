@@ -1,4 +1,3 @@
-@import url('../node_modules/@fort-awesome/fontawesome-free/css/all.css');
 header {
   background-color: #0B0C10;/*#333;#0B0C10*/
   color: white;
@@ -51,7 +50,7 @@ header h1 {
   border: 1px solid;
 }
 
-.room-list-heading, .new-post-label, .new-room-label {
+.room-list-heading, .new-post-label, .new-room-label, .room-name-heading {
   background-color: #333;
   color: white;
   font-weight: bold;
@@ -61,7 +60,7 @@ header h1 {
 }
 
 .room-name {
-  background-color: #66FCF1;
+  /*background-color: #66FCF1;*/
   width: 100%;
   height: 85px;
 }

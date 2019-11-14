@@ -1,7 +1,7 @@
 <div class="main-content">
   <%- include partials/roomList.ejs %>
   <div class="message-list-div">
-    <div class="room-name"><%=room%></div>
+    <div class="room-name-heading"><%=room%></div>
     <div class="close"><a href="/close-room/<%=room%>">close</a></div>
     <ul class="message-list">
       <% posts.forEach(post => { %>

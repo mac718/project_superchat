@@ -1,5 +1,6 @@
+@import url('../node_modules/@fort-awesome/fontawesome-free/css/all.css');
 header {
-  background-color: #333;
+  background-color: #0B0C10;/*#333;#0B0C10*/
   color: white;
   height: 90px;
   display: flex;
@@ -14,6 +15,7 @@ li {
 header h1 {
   margin-left: 20px;
   font-weight: bold;
+  color: #66FCF1;
 }
 
 .logout {
@@ -22,6 +24,10 @@ header h1 {
   font-weight: bold;
   display: flex;
   flex-direction: column;
+}
+
+.logout a {
+  color: #66FCF1;
 }
 
 .main-content {
@@ -45,13 +51,19 @@ header h1 {
   border: 1px solid;
 }
 
-.room-name, .new-post-label, .new-room-label {
+.room-list-heading, .new-post-label, .new-room-label {
   background-color: #333;
   color: white;
   font-weight: bold;
   display: inline-block;
   padding-left: 5px;
   padding-right: 5px;
+}
+
+.room-name {
+  background-color: #66FCF1;
+  width: 100%;
+  height: 85px;
 }
 
 .close {

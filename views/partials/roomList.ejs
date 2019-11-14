@@ -1,11 +1,13 @@
+<link rel="stylesheet" type="text/css" href="../../node_modules/@fortawesome/fontawesome-free/css/all.css">
+<script type="text/javascript" src="../../node_modules/@fortawesome/fontawesome-free/js/js.css"></script>
 <div class="room-list-div">
-  <div class="room-name">CHAT ROOMS</div>
-  <ul class="room-list">
-    <% rooms.forEach( (room, i) => { %>
-      <li>
-        <a href="/chatrooms/<%=room%>"><h4 class="room"><%=room%><%=newMessages[i].length%></h4></a>
-        <p></p>
-      </li><hr>
-    <% }) %>
-  </ul>
+  <div class="room-list-heading">CHAT ROOMS</div>
+    <div class="room-list">
+      <% rooms.forEach( (room, i) => { %>
+        <div class="room-name">
+          <a href="/chatrooms/<%=room%>"><h4 class="room"><%=room%><%=newMessages[i].length%></h4><i class="fas fa-comment"></i></a>
+          <p></p>
+        </div><hr>
+      <% }) %>
+    </div>
 </div>

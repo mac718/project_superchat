@@ -43,6 +43,8 @@ router.get('/', (req, res) => {
           } else {
             timeFilteredMessages = messageList
           }
+          console.log(timeFilteredMessages)
+          console.log(req.cookies[`${user}Last${room}LeaveTime`])
           newMessages.push(timeFilteredMessages);
           res.render('index', {rooms, user, room, newMessages});
         })  
@@ -134,7 +136,13 @@ router.get('/login', (req, res) => {
   res.render('login');
 })
 
-router.get('/logout', (req, res) => {
+router.get('/logout/:room', (req, res) => {
+  let user = req.cookies.user;
+  let room = req.params.room.toUpperCase();
+  let lastLeave = `${user}Last${room}LeaveTime`
+  let time = Date.now()
+  res.cookie(lastLeave, time)
+  console.log(req.cookies[lastLeave])
   res.clearCookie('user');
   res.redirect('/');
 })

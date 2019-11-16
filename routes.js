@@ -33,7 +33,7 @@ router.get('/', (req, res) => {
         
         redisClient.lrange(`${room}`, 0, -1, (err, messages) => {
           
-          messageList = messages;
+          messageList = messages ? messages : [];
           let leaveTime = `${user}last${room}LeaveTime`
           let timeFilteredMessages;
           if(req.cookies[`${user}Last${room}LeaveTime`]){

@@ -2,10 +2,15 @@
   <div class="room-list-heading">CHAT ROOMS</div>
     <div class="room-list">
       <% rooms.forEach( (room, i) => { %>
-        <div class="room-name">
-          <a href="/chatrooms/<%=room%>"><h4 class="room"><%=room%><%=newMessages[i].length%></h4><i class="fas fa-comment"></i></a>
-          <p></p>
-        </div><hr>
+        <%  let divColor = i % 2 === 0 ? 'green' : 'grey' %>
+        <div class="room-name-<%=divColor%>">
+          <a href="/chatrooms/<%=room%>"><h4 class="room"><%=room%></h4></a>
+          <% if (newMessages[i].length > 0) { %>
+            <div class="new-messages">
+              <i class="far fa-comments fa-2x"><%=newMessages[i].length%></i>
+            </div>
+          <%}%>
+        </div>
       <% }) %>
     </div>
 </div>

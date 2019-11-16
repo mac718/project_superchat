@@ -74,7 +74,7 @@ router.get('/chatrooms/:room', (req, res) => {
   console.log(req.cookies)
 
   let roomList;
-    let newMessages = []
+  let newMessages = []
     
     redisClient.lrange('rooms', 0, -1, (err, rooms) => {
       
@@ -87,7 +87,7 @@ router.get('/chatrooms/:room', (req, res) => {
         
         redisClient.lrange(`${room}`, 0, -1, (err, messages) => {
           
-          messageList = messages;
+          messageList = messages ? messages : [];
           let leaveTime = `${user}last${room}LeaveTime`
           let timeFilteredMessages
           if(req.cookies[`${user}Last${room}LeaveTime`]){
@@ -101,18 +101,14 @@ router.get('/chatrooms/:room', (req, res) => {
             timeFilteredMessages = []
           }
           newMessages.push(timeFilteredMessages);
-          redisClient.lrange(`${room}`, 0, -1, (err, posts) => {
-            res.render('room', {posts, user, room, rooms, newMessages});
-          })
+          
         })  
+
+      })
+      redisClient.lrange(`${room}`, 0, -1, (err, posts) => {
+        res.render('room', {posts, user, room, rooms, newMessages});
       })
     })
-  // redisClient.lrange('rooms', 0, -1, (err, roomList) => {
-  //   rooms = roomList;
-  // })
-  // redisClient.lrange(`${room}`, 0, -1, (err, posts) => {
-  //   res.render('room', {posts, user, room, rooms});
-  // })
 })
 
 router.post('/new-room', (req, res) => {

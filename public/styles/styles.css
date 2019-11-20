@@ -86,6 +86,7 @@ header h1 {
 input[name='submit-post'], input[name='login'], input[name='submit-room'] {
   display: block;
   margin: auto;
+  background-color: #45A29E;
 }
 
 .new-post-text, .new-room-text {
@@ -117,7 +118,9 @@ label {
 
 .room {
   display: inline-block;
-  color: #1F2833;
+  color: white;
+  position: absolute;
+  top: 25%;
 }
 
 .new-messages {
@@ -135,4 +138,11 @@ label {
 
 #create-room {
   background-color: #45A29E;
+}
+
+.badge {
+  float: right;
+  font-size: 100%;
+  position: relative;
+  top: 25%;
 }

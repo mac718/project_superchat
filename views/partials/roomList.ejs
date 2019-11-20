@@ -1,14 +1,12 @@
 <div class="room-list-div">
   <div class="room-list-heading">CHAT ROOMS</div>
     <div class="room-list">
-      <% rooms.forEach( (room, i) => { %>
+      <% roomList.forEach( (room, i) => { %>
         <%  let divColor = i % 2 === 0 ? 'green' : 'grey' %>
         <div class="room-name-<%=divColor%>">
-          <a href="/chatrooms/<%=room%>"><h4 class="room"><%=room%></h4></a>
-          <% if (newMessages[i].length > 0) { %>
-            <div class="new-messages">
-              <i class="far fa-comments fa-2x"><%=newMessages[i].length%></i>
-            </div>
+          <a href="/chatrooms/<%=room%>"><h3 class="room"><%=room%></h3></a>
+          <% if (newMessages[i] > 0) { %>
+            <span class="badge badge-danger"><%=newMessages[i]%></span>
           <%}%>
         </div>
       <% }) %>

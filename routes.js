@@ -21,21 +21,26 @@ router.get('/', (req, res) => {
     let room = ''
     let roomList;
     let newMessages = []
+    console.log('butt' + newMessages)
     
     redisClient.lrange('rooms', 0, -1, (err, rooms) => {
-      
-      roomList = rooms;
+    
+      roomList = rooms ? rooms : [];
+      console.log(roomList)
   
-      roomList.forEach(room => {
+      roomList.forEach((room, i) => {
         
         let messageList;
+        let timeFilteredMessages;
         room = room.toUpperCase()
         
         redisClient.lrange(`${room}`, 0, -1, (err, messages) => {
           
+
           messageList = messages ? messages : [];
-          let leaveTime = `${user}last${room}LeaveTime`
-          let timeFilteredMessages;
+          console.log(messageList)
+          //let leaveTime = `${user}last${room}LeaveTime`
+          
           if(req.cookies[`${user}Last${room}LeaveTime`]){
             timeFilteredMessages = messageList.filter(message => {
              return JSON.parse(message).time > req.cookies[`${user}Last${room}LeaveTime`]
@@ -43,10 +48,12 @@ router.get('/', (req, res) => {
           } else {
             timeFilteredMessages = messageList
           }
-          console.log(timeFilteredMessages)
           console.log(req.cookies[`${user}Last${room}LeaveTime`])
-          newMessages.push(timeFilteredMessages);
-          res.render('index', {rooms, user, room, newMessages});
+          newMessages.push(timeFilteredMessages.length);
+          
+          if (i === roomList.length - 1) {
+            res.render('index', {roomList, user, room, newMessages});
+          } 
         })  
       })
     })
@@ -100,13 +107,13 @@ router.get('/chatrooms/:room', (req, res) => {
           } else {
             timeFilteredMessages = []
           }
-          newMessages.push(timeFilteredMessages);
+          newMessages.push(timeFilteredMessages.length);
           
         })  
 
       })
       redisClient.lrange(`${room}`, 0, -1, (err, posts) => {
-        res.render('room', {posts, user, room, rooms, newMessages});
+        res.render('room', {posts, user, room, roomList, newMessages});
       })
     })
 })
@@ -139,6 +146,11 @@ router.get('/logout/:room', (req, res) => {
   let time = Date.now()
   res.cookie(lastLeave, time)
   console.log(req.cookies[lastLeave])
+  res.clearCookie('user');
+  res.redirect('/');
+})
+
+router.get('/logout/', (req, res) => {
   res.clearCookie('user');
   res.redirect('/');
 })

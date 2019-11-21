@@ -59,24 +59,22 @@ header h1 {
   padding-right: 5px;
 }
 
-.room-name-grey {
-  background-color: #C5C6C7;
+.room-name-grey, .room-name-green {
   width: 95%;
   height: 85px;
   margin: auto;
   position: relative;
   border-radius: 5%;
   margin-top: 10px;
+  padding: 5px;
+}
+
+.room-name-grey {
+  background-color: #C5C6C7;
 }
 
 .room-name-green {
   background-color: #45A29E;
-  width: 95%;
-  height: 85px;
-  margin: auto;
-  position: relative;
-  border-radius: 5%;
-  margin-top: 10px;
 }
 
 .close {

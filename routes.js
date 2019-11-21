@@ -21,7 +21,6 @@ router.get('/', (req, res) => {
     let room = ''
     let roomList;
     let newMessages = []
-    console.log('butt' + newMessages)
     
     redisClient.lrange('rooms', 0, -1, (err, rooms) => {
     

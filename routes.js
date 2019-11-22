@@ -61,13 +61,6 @@ router.get('/', (req, res) => {
     let room = '';
     res.render('login', {user, room});
   }
-  //determine number of users in each room
-  // let numberOfUsers = [];
-  //   posts.forEach(post => {
-  //     if(!numberOfUsers.includes(Object.keys(JSON.parse(post))[0])) {
-  //       numberOfUsers.push(Object.keys(JSON.parse(post))[0])
-  //     }
-  //   })
 })
 
 router.get('/chatrooms/:room', (req, res) => {

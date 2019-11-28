@@ -38,7 +38,6 @@ router.get('/', (req, res) => {
 
           messageList = messages ? messages : [];
           console.log(messageList)
-          //let leaveTime = `${user}last${room}LeaveTime`
           
           if(req.cookies[`${user}Last${room}LeaveTime`]){
             timeFilteredMessages = messageList.filter(message => {
@@ -89,7 +88,7 @@ router.get('/chatrooms/:room', (req, res) => {
           messageList = messages ? messages : [];
           let leaveTime = `${user}last${room}LeaveTime`
           let timeFilteredMessages
-          if(req.cookies[`${user}Last${room}LeaveTime`]){
+          if(req.cookies[`${user}Last${room}LeaveTime`] && room != req.params.room.toUpperCase()){
             console.log('hello')
             timeFilteredMessages = messageList.filter(message => {
               console.log(JSON.parse(message).time)
@@ -97,7 +96,7 @@ router.get('/chatrooms/:room', (req, res) => {
               return JSON.parse(message).time > req.cookies[`${user}Last${room}LeaveTime`]
             }) 
           } else {
-            timeFilteredMessages = []
+            timeFilteredMessages = [];
           }
           newMessages.push(timeFilteredMessages.length);
           

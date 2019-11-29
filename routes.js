@@ -26,34 +26,40 @@ router.get('/', (req, res) => {
     
       roomList = rooms ? rooms : [];
       console.log(roomList)
-  
-      roomList.forEach((room, i) => {
-        
-        let messageList;
-        let timeFilteredMessages;
-        room = room.toUpperCase()
-        
-        redisClient.lrange(`${room}`, 0, -1, (err, messages) => {
-          
 
-          messageList = messages ? messages : [];
-          console.log(messageList)
+      if(roomList.length > 0) {
+        roomList.forEach((room, i) => {
+          console.log('i ' + i)
           
-          if(req.cookies[`${user}Last${room}LeaveTime`]){
-            timeFilteredMessages = messageList.filter(message => {
-             return JSON.parse(message).time > req.cookies[`${user}Last${room}LeaveTime`]
-            }) 
-          } else {
-            timeFilteredMessages = messageList
-          }
-          console.log(req.cookies[`${user}Last${room}LeaveTime`])
-          newMessages.push(timeFilteredMessages.length);
+          let messageList;
+          let timeFilteredMessages;
+          room = room.toUpperCase()
           
-          if (i === roomList.length - 1) {
-            res.render('index', {roomList, user, room, newMessages});
-          } 
-        })  
-      })
+          redisClient.lrange(`${room}`, 0, -1, (err, messages) => {
+            
+
+            messageList = messages ? messages : [];
+            console.log(messageList)
+            
+            if(req.cookies[`${user}Last${room}LeaveTime`]){
+              timeFilteredMessages = messageList.filter(message => {
+               return JSON.parse(message).time > req.cookies[`${user}Last${room}LeaveTime`]
+              }) 
+            } else {
+              timeFilteredMessages = messageList
+            }
+            console.log(req.cookies[`${user}Last${room}LeaveTime`])
+            newMessages.push(timeFilteredMessages.length);
+            
+            if (i === roomList.length - 1 || i === 0) {
+              console.log('hello')
+              res.render('index', {roomList, user, room, newMessages});
+            } 
+          })  
+        })
+      } else  {
+         res.render('index', {roomList, user, room, newMessages});
+      }
     })
   } else {
     let user = '';
@@ -111,8 +117,9 @@ router.get('/chatrooms/:room', (req, res) => {
 
 router.post('/new-room', (req, res) => {
   let room = req.body.newRoom;
-  console.log(room);
-  redisClient.rpush('rooms', room);
+  if (room != '') {
+    redisClient.rpush('rooms', room);
+  }
   res.redirect('/');
 })
 

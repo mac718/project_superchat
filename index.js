@@ -40,4 +40,4 @@ io.on('connection', client => {
 })
 
 
-server.listen(port);
+server.listen(port, () => {console.log(`listening at ${port}`)});

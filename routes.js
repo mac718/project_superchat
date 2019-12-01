@@ -25,11 +25,9 @@ router.get('/', (req, res) => {
     redisClient.lrange('rooms', 0, -1, (err, rooms) => {
     
       roomList = rooms ? rooms : [];
-      console.log(roomList)
 
       if(roomList.length > 0) {
         roomList.forEach((room, i) => {
-          console.log('i ' + i)
           
           let messageList;
           let timeFilteredMessages;
@@ -39,7 +37,6 @@ router.get('/', (req, res) => {
             
 
             messageList = messages ? messages : [];
-            console.log(messageList)
             
             if(req.cookies[`${user}Last${room}LeaveTime`]){
               timeFilteredMessages = messageList.filter(message => {
@@ -48,11 +45,9 @@ router.get('/', (req, res) => {
             } else {
               timeFilteredMessages = messageList
             }
-            console.log(req.cookies[`${user}Last${room}LeaveTime`])
             newMessages.push(timeFilteredMessages.length);
             
             if (i === roomList.length - 1 || i === 0) {
-              console.log('hello')
               res.render('index', {roomList, user, room, newMessages});
             } 
           })  
@@ -75,7 +70,6 @@ router.get('/chatrooms/:room', (req, res) => {
   let time = Date.now()
   res.cookie(lastJoin, time)
   let rooms;
-  console.log(req.cookies)
 
   let roomList;
   let newMessages = []
@@ -97,17 +91,13 @@ router.get('/chatrooms/:room', (req, res) => {
           if(req.cookies[`${user}Last${room}LeaveTime`] && room != req.params.room.toUpperCase()){
             console.log('hello')
             timeFilteredMessages = messageList.filter(message => {
-              console.log(JSON.parse(message).time)
-              console.log(req.cookies[`${user}Last${room}LeaveTime`])
               return JSON.parse(message).time > req.cookies[`${user}Last${room}LeaveTime`]
             }) 
           } else {
             timeFilteredMessages = [];
           }
           newMessages.push(timeFilteredMessages.length);
-          
-        })  
-
+        })
       })
       redisClient.lrange(`${room}`, 0, -1, (err, posts) => {
         res.render('room', {posts, user, room, roomList, newMessages});
@@ -143,7 +133,6 @@ router.get('/logout/:room', (req, res) => {
   let lastLeave = `${user}Last${room}LeaveTime`
   let time = Date.now()
   res.cookie(lastLeave, time)
-  console.log(req.cookies[lastLeave])
   res.clearCookie('user');
   res.redirect('/');
 })
